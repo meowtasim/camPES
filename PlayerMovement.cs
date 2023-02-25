@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Tilemap groundTilemap;
     [SerializeField] private Tilemap collisionTilemap;
     [SerializeField] private Tilemap liftTilemap;
+    [SerializeField] private Tilemap stairsTilemap;
+    [SerializeField] private Tilemap stairs2Tilemap;
     public static Rigidbody2D rb;
     // Start is called before the first frame update
     void Start()
@@ -19,10 +21,20 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3Int liftPos = liftTilemap.WorldToCell(new Vector3(rb.position.x, rb.position.y));
+        Vector3Int liftPos = liftTilemap.WorldToCell(new Vector3(rb.position.x, rb.position.y));//access to lift interface
+        Vector3Int stairPos = stairsTilemap.WorldToCell(new Vector3(rb.position.x, rb.position.y));//stairs from basement to groundfloor
+        Vector3Int stair2Pos = stairs2Tilemap.WorldToCell(new Vector3(rb.position.x, rb.position.y));//stairs from basement to groundfloor
         if (liftTilemap.HasTile(liftPos))
         {
             SceneManager.LoadScene(1);
+        }
+        if (stairsTilemap.HasTile(stairPos))
+        {
+            //SceneManager.LoadScene(0);
+        }
+        if (stairs2Tilemap.HasTile(stair2Pos))
+        {
+            //SceneManager.LoadScene(2);
         }
         if (Input.GetKey("right"))//Player moving towards right
         {
